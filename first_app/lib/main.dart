@@ -11,17 +11,19 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Colors.amber,
-        accentColor: Colors.red,
+        accentColor: Colors.yellow,
         textTheme: TextTheme(
-          bodyText2: TextStyle(color: Colors.purple)
-        )
+          bodyText2: TextStyle(color: Colors.purple),
+        ),
       ),
-      initialRoute: '/second',
+      initialRoute: '/5',
       routes: <String, WidgetBuilder> {
-        '/first': (context) => FirstPage(),
-        '/second': (context) => SecondPage(),
-        '/third': (context) => ThirdPage(),
-        '/fourth': (context) => FourthPage(),
+        '/1': (context) => FirstPage(),
+        '/2': (context) => SecondPage(),
+        '/3': (context) => ThirdPage(),
+        '/4': (context) => FourthPage(),
+        '/5': (context) => FifthPage(),
+        '/6': (context) => SixthPage(),
       }
     );
   }
@@ -37,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
   Image cat = Image.asset(
     'assets/popcat2.png',
     width: 120,
@@ -51,12 +54,11 @@ class _MyHomePageState extends State<MyHomePage> {
     'assets/popcat2.png',
     width: 120,
   );
-  
 
   void _incrementCounter() {
     setState(() {
       cat = cat2;
-      _counter+=1;
+      _counter++;
     });
   }
 
@@ -80,9 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               height: 200.0,
               margin: EdgeInsets.only(
-                left: 100.0,
-                right: 100.0,
-                bottom: 20.0
+                  left: 100.0, 
+                  right: 100.0,
+                  bottom: 20.0
                 ),
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
@@ -92,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: cat,
             ),
             Text(
-              'You have pushed the button this many times:',
+              'You Íhave pushed the button this many times:',
             ),
             Text(
               '$_counter',
@@ -105,18 +107,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green,
                   ),
-                  onPressed: _decreaseCounter,
+                  onPressed: _decreaseCounter, 
                   child: Text('Decrease'),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.red,
                   ),
-                  onPressed: _incrementCounter,
+                  onPressed: _incrementCounter, 
                   child: Text('Increase'),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -149,7 +151,7 @@ class FirstPage extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Page'),
+        title: Text('First Page First Page'),
         actions: [
           IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward)),
           IconButton(onPressed: (){}, icon: Icon(Icons.agriculture)),
@@ -161,7 +163,7 @@ class FirstPage extends StatelessWidget{
     );
   }
 }
-  
+
 class SecondPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -176,7 +178,7 @@ class SecondPage extends StatelessWidget{
       ),
       body: Center(
         child: Column(
-           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Break!!! Back at 7.40pm',
@@ -295,6 +297,128 @@ class FourthPage extends StatelessWidget{
           );
         },
         separatorBuilder: (context, index) => Divider(),
+      ),
+    );
+  }
+}
+
+class FifthPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Grid View'),
+      ),
+      body: GridView.count(
+        crossAxisCount: 2,
+        children: List.generate(7, (index) {
+          return InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, '/${index+1}');
+              // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //   content: Text('Tap at $index'),
+              // ));
+            },
+            child: Container(
+              margin: EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Center(
+                child: Text(
+                  'Page ${index+1}',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+}
+
+class SixthPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('First Form'),
+      ),
+      body: MyCustomForm(),
+    );
+  }
+}
+
+class MyCustomForm extends StatefulWidget{
+  @override
+  _MyCustomFormState createState() => _MyCustomFormState();
+}
+
+class _MyCustomFormState extends State<MyCustomForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Enter your firstname',
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter firstname.';
+              }
+
+              return null;
+            },
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Enter your lastname',
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter lastname.';
+              }
+
+              return null;
+            },
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Enter your age',
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter age.';
+              }
+
+              if (int.parse(value) < 18){
+                return 'Please enter valid age.';
+              }
+
+              return null;
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Hoorayyyy'),
+                ));
+              }
+            },
+            child: Text('Validate'),
+          ),
+        ],
       ),
     );
   }
