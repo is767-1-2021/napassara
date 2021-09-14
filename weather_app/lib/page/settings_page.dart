@@ -90,7 +90,7 @@ class SettingsPageState extends State<SettingsPage> {
                     confirmDismiss: (DismissDirection dir) async => dir == DismissDirection.endToStart,
                     background: Container(
                       child: Icon(Icons.delete_forever),
-                      decoration: BoxDecoration(color: Colors.red[700]),
+                      decoration: BoxDecoration(color: Colors.yellow[700]),
                     ),
                     key: ValueKey(city),
                     child: CheckboxListTile(
