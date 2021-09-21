@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FifthPage extends StatelessWidget{
+class FifthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,11 +11,8 @@ class FifthPage extends StatelessWidget{
         crossAxisCount: 2,
         children: List.generate(7, (index) {
           return InkWell(
-            onTap: (){
-              Navigator.pushNamed(context, '/${index+1}');
-              // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //   content: Text('Tap at $index'),
-              // ));
+            onTap: () {
+              Navigator.pushNamed(context, '/${index + 1}');
             },
             child: Container(
               margin: EdgeInsets.all(20.0),
@@ -25,7 +22,7 @@ class FifthPage extends StatelessWidget{
               ),
               child: Center(
                 child: Text(
-                  'Page ${index+1}',
+                  'Item ${index + 1}',
                   style: Theme.of(context).textTheme.headline5,
                 ),
               ),
