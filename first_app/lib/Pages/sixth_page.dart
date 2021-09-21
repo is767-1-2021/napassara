@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SixthPage extends StatelessWidget{
+class SixthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +12,7 @@ class SixthPage extends StatelessWidget{
   }
 }
 
-class MyCustomForm extends StatefulWidget{
+class MyCustomForm extends StatefulWidget {
   @override
   _MyCustomFormState createState() => _MyCustomFormState();
 }
@@ -23,7 +23,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   String? _lastName;
   int? _age;
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -32,14 +32,13 @@ class _MyCustomFormState extends State<MyCustomForm> {
           TextFormField(
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: 'Enter your firstname',
-              icon: Icon(Icons.business)
+              labelText: 'Enter  your firstname',
+              icon: Icon(Icons.business),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter firstname.';
+                return 'Please Enter Firstname.';
               }
-
               return null;
             },
             onSaved: (value) {
@@ -49,14 +48,13 @@ class _MyCustomFormState extends State<MyCustomForm> {
           TextFormField(
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: 'Enter your lastname',
-              icon: Icon(Icons.family_restroom)
+              labelText: 'Enter your Lastname.',
+              icon: Icon(Icons.family_restroom),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter lastname.';
+                return 'Please enter Lastname.';
               }
-
               return null;
             },
             onSaved: (value) {
@@ -66,18 +64,13 @@ class _MyCustomFormState extends State<MyCustomForm> {
           TextFormField(
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: 'Enter your age',
-              icon: Icon(Icons.ring_volume)
+              labelText: 'Enter your Age.',
+              icon: Icon(Icons.ring_volume),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter age.';
+                return 'Please enter Age';
               }
-
-              if (int.parse(value) < 18){
-                return 'Please enter valid age.';
-              }
-
               return null;
             },
             onSaved: (value) {
@@ -89,11 +82,9 @@ class _MyCustomFormState extends State<MyCustomForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
 
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Hoorayyyy = $_firstName $_lastName $_age'),
-                ));
+                var response = 'Horaayy = $_firstName $_lastName $_age';
 
-                
+                Navigator.pop(context, response);
               }
             },
             child: Text('Validate'),
