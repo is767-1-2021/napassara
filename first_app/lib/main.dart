@@ -1,14 +1,27 @@
+import 'package:first_app/models/first_form_model.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:first_app/Pages/fifth_page.dart';
 import 'package:first_app/Pages/first_page.dart';
 import 'package:first_app/Pages/fourth_page.dart';
 import 'package:first_app/Pages/second_page.dart';
 import 'package:first_app/Pages/sixth_page.dart';
 import 'package:first_app/Pages/third_page.dart';
-import 'package:flutter/material.dart';
 import 'package:first_app/Pages/seventh_page.dart';
 
+
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => FirstFormModel(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
