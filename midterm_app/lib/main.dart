@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             bodyText2: TextStyle(color: Colors.purple),
           ),
         ),
-        initialRoute: '/2',
+        initialRoute: '/1',
         routes: <String, WidgetBuilder>{
           '/1': (context) => FirstPage(),
           '/2': (context) => SecondPage(),

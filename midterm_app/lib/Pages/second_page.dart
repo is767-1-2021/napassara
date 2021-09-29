@@ -7,7 +7,7 @@ class SecondPage extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Form'),
+        title: Text('Enter Date&Time and Menu'),
       ),
       body: MyCustomForm(),
     );
@@ -21,9 +21,11 @@ class MyCustomForm extends StatefulWidget{
 
 class _MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
-  String? _firstName;
-  String? _lastName;
-  int? _age;
+  String? _date;
+  String? _time; 
+  String? _menu;
+  
+  int? _kCal;
 
   @override
   Widget build(BuildContext context) {
@@ -34,26 +36,44 @@ class _MyCustomFormState extends State<MyCustomForm> {
           TextFormField(
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: 'Enter your name',
-              icon: Icon(Icons.business),
+              labelText: 'Enter date',
+              icon: Icon(Icons.event_note),
             ),
             validator: (value){
               if (value == null || value.isEmpty){
-                return 'Please enter name';
+                return 'Please enter date';
               }
               return null;
             },
             onSaved: (value) {
-              _firstName = value;
+              _date = value;
             },
-            initialValue: context.read<FirstFormModel>().firstName,
+            initialValue: context.read<FirstFormModel>().date,
+          ),
+
+          TextFormField(
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Enter time',
+              icon: Icon(Icons.watch_later),
+            ),
+            validator: (value){
+              if (value == null || value.isEmpty){
+                return 'Please enter time';
+              }
+              return null;
+            },
+            onSaved: (value) {
+              _time = value;
+            },
+            initialValue: context.read<FirstFormModel>().time,
           ),
 
           TextFormField(
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
               labelText: 'Enter your menu',
-              icon: Icon(Icons.family_restroom),
+              icon: Icon(Icons.local_restaurant),
             ),
             validator: (value){
               if (value == null || value.isEmpty){
@@ -62,30 +82,30 @@ class _MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
             onSaved: (value) {
-              _lastName = value;
+              _menu = value;
             },
-            initialValue: context.read<FirstFormModel>().lastName,
+            initialValue: context.read<FirstFormModel>().menu,
           ),
 
           TextFormField(
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
-              labelText: 'Enter your age',
-              icon: Icon(Icons.ring_volume),
+              labelText: 'Enter kCal.',
+              icon: Icon(Icons.calculate),
             ),
             validator: (value){
               if (value == null || value.isEmpty){
-                return 'Please enter age';
+                return 'Please enter kCal.';
               }
-              if (int.parse(value) < 18){
-                return 'Plase enter valid age.';
+              if (int.parse(value) < 0){
+                return 'Plase enter kCal.';
               }
               return null;
             },
             onSaved: (value) {
-              _age = int.parse(value!);
+              _kCal = int.parse(value!);
             },
-            initialValue: context.read<FirstFormModel>().age.toString(),
+            initialValue: context.read<FirstFormModel>().kCal.toString(),
           ),
 
           ElevatedButton(
@@ -93,9 +113,10 @@ class _MyCustomFormState extends State<MyCustomForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
 
-                context.read<FirstFormModel>().firstName = _firstName;
-                context.read<FirstFormModel>().lastName = _lastName;
-                context.read<FirstFormModel>().age = _age;
+                context.read<FirstFormModel>().date = _date;
+                context.read<FirstFormModel>().time = _time;
+                context.read<FirstFormModel>().menu= _menu;
+                context.read<FirstFormModel>().kCal = _kCal;
 
                 Navigator.pop(context);            
               }

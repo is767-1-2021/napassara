@@ -13,12 +13,7 @@ class _FirstPageState extends State<FirstPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Choose Date & Time'),
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward)),
-          IconButton(onPressed: (){}, icon: Icon(Icons.agriculture)),
-          IconButton(onPressed: (){}, icon: Icon(Icons.food_bank)),
-        ],
+        title: Text('History'),
       ),
       body: Center(
         child: Column(
@@ -27,13 +22,13 @@ class _FirstPageState extends State<FirstPage> {
               padding: EdgeInsets.all(20.0),
               child: Consumer<FirstFormModel>(
                 builder: (context, form, child){
-                  return Text('${form.firstName} ${form.lastName} ${form.age}' );
+                  return Text('${form.date} ${form.time} ${form.menu} ${form.kCal}' );
                 },
               ),
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/6');
+                Navigator.pushNamed(context, '/2');
               }, 
               child: Text('Fill this form please'),
               ),
