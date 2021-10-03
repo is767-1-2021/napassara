@@ -23,10 +23,10 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image path: "lib/assets/diet_app.jpg"
+  image path: "assets/diet_app.png"
     
 flutter:
 
   uses-material-design: true
   assets:
-    - lib/assets/diet_app.jpg
+    - assets/diet_app.png
