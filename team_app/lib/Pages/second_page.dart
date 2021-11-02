@@ -24,7 +24,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
   String? _date;
   String? _time; 
   String? _menu;
-  
+  String? _workout;
+  int? _kCalBurnt;
   int? _kCal;
 
   @override
@@ -51,12 +52,39 @@ class _MyCustomFormState extends State<MyCustomForm> {
             initialValue: context.read<FirstFormModel>().date,
           ),
 
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(29.5),
+            ),
+            child: TextFormField(
+              decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Enter time',
+              icon: Icon(Icons.watch_later),
+            ),
+            
+            validator: (value){
+              if (value == null || value.isEmpty){
+                return 'Please enter time';
+              }
+              return null;
+            },
+            onSaved: (value) {
+              _time = value;
+            },
+            initialValue: context.read<FirstFormModel>().time,
+            ),
+          ),
+
           TextFormField(
             decoration: InputDecoration(
               border: UnderlineInputBorder(),
               labelText: 'Enter time',
               icon: Icon(Icons.watch_later),
             ),
+            
             validator: (value){
               if (value == null || value.isEmpty){
                 return 'Please enter time';
@@ -108,6 +136,28 @@ class _MyCustomFormState extends State<MyCustomForm> {
             initialValue: context.read<FirstFormModel>().kCal.toString(),
           ),
 
+          TextFormField(
+            decoration: InputDecoration(
+              border: UnderlineInputBorder(),
+              labelText: 'Enter kCal. Burns',
+              icon: Icon(Icons.calculate),
+            ),
+            validator: (value){
+              if (value == null || value.isEmpty){
+                return 'Please enter kCal. Burns';
+              }
+              if (int.parse(value) < 0){
+                return 'Plase enter kCal. Burns';
+              }
+              return null;
+            },
+            onSaved: (value) {
+              _kCalBurnt = int.parse(value!);
+            },
+            initialValue: context.read<FirstFormModel>().kCalBurnt.toString(),
+          ),
+
+
           ElevatedButton(
             onPressed: (){
               if (_formKey.currentState!.validate()) {
@@ -117,6 +167,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 context.read<FirstFormModel>().time = _time;
                 context.read<FirstFormModel>().menu= _menu;
                 context.read<FirstFormModel>().kCal = _kCal;
+                context.read<FirstFormModel>().kCalBurnt = _kCalBurnt;
+                context.read<FirstFormModel>().workout = _workout;
 
                 Navigator.pop(context);            
               }

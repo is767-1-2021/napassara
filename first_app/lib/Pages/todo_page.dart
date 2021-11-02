@@ -2,7 +2,7 @@ import 'package:first_app/controllers/todo.dart';
 import 'package:first_app/models/todo.dart';
 import 'package:flutter/material.dart';
 
-class TodoPage extends StatefulWidget{
+class TodoPage extends StatefulWidget {
   final TodoController controller;
 
   TodoPage({required this.controller});
@@ -18,10 +18,9 @@ class _TodoPageState extends State<TodoPage> {
   @override
   void initState() {
     super.initState();
-  
-    widget.controller.onSync.listen(
-      (bool synState) => setState(() => isLoading = synState)
-    );
+
+    widget.controller.onSync
+        .listen((bool synState) => setState(() => isLoading = synState));
   }
 
   void _getTodos() async {
@@ -33,21 +32,21 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   Widget get body => isLoading
-    ? CircularProgressIndicator()
-    : ListView.builder(
-      itemCount: todos.isEmpty ? 1 : todos.length,
-      itemBuilder: (context, index) {
-        if (todos.isEmpty) {
-          return Text("Tap button to fetch Todos");
-        }
+      ? CircularProgressIndicator()
+      : ListView.builder(
+          itemCount: todos.isEmpty ? 1 : todos.length,
+          itemBuilder: (context, index) {
+            if (todos.isEmpty) {
+              return Text("Tap button to fetch Todos");
+            }
 
-        return CheckboxListTile(
-          onChanged: null,
-          value: todos[index].completed,
-          title: Text(todos[index].title),
+            return CheckboxListTile(
+              onChanged: null,
+              value: todos[index].completed,
+              title: Text(todos[index].title),
+            );
+          },
         );
-      },
-    );
 
   @override
   Widget build(BuildContext context) {

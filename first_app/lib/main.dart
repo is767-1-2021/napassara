@@ -1,22 +1,37 @@
-import 'package:first_app/controllers/todo.dart';
-import 'package:first_app/models/first_form_model.dart';
+//import 'package:first_app/models/first_form_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:first_app/pages/eighth_page.dart';
 import 'package:first_app/pages/todo_page.dart';
 import 'package:first_app/services/services.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-
+//import 'package:provider/provider.dart';
+import 'controllers/todo.dart';
+import 'pages/eighth_page.dart';
+import 'pages/fifth_page.dart';
 import 'pages/first_page.dart';
 import 'pages/fourth_page.dart';
 import 'pages/second_page.dart';
 import 'pages/seventh_page.dart';
-import 'pages/third_page.dart';
-import 'pages/fifth_page.dart';
 import 'pages/sixth_page.dart';
+import 'pages/third_page.dart';
+import 'pages/todo_page.dart';
+import 'services/services.dart';
 
-void main() {
-  var services = HttpServices();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  var services = FirebaseServices();
+  /*runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => FirstFormModel(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );*/
   var controller = TodoController(services);
 
   runApp(TodoApp(controller: controller));
@@ -40,26 +55,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Colors.amber,
-        accentColor: Colors.yellow,
-        textTheme: TextTheme(
-          bodyText2: TextStyle(color: Colors.purple),
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primaryColor: Colors.amber,
+          accentColor: Colors.yellow,
+          textTheme: TextTheme(
+            bodyText2: TextStyle(color: Colors.purple),
+          ),
         ),
-      ),
-      initialRoute: '/5',
-      routes: <String, WidgetBuilder> {
-        '/1': (context) => FirstPage(),
-        '/2': (context) => SecondPage(),
-        '/3': (context) => ThirdPage(),
-        '/4': (context) => FourthPage(),
-        '/5': (context) => FifthPage(),
-        '/6': (context) => SixthPage(),
-        '/7': (context) => SeventhPage(),
-        '/8': (context) => EighthPage(),
-      }
-    );
+        initialRoute: '/5',
+        routes: <String, WidgetBuilder>{
+          '/1': (context) => FirstPage(),
+          '/2': (context) => SecondPage(),
+          '/3': (context) => ThirdPage(),
+          '/4': (context) => FourthPage(),
+          '/5': (context) => FifthPage(),
+          '/6': (context) => SixthPage(),
+          '/7': (context) => SeventhPage(),
+          '/8': (context) => EighthPage(),
+        });
   }
 }
 
@@ -115,11 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               height: 200.0,
-              margin: EdgeInsets.only(
-                  left: 100.0, 
-                  right: 100.0,
-                  bottom: 20.0
-                ),
+              margin: EdgeInsets.only(left: 100.0, right: 100.0, bottom: 20.0),
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Colors.amber.withOpacity(0.50),
@@ -141,14 +151,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green,
                   ),
-                  onPressed: _decreaseCounter, 
+                  onPressed: _decreaseCounter,
                   child: Text('Decrease'),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.red,
                   ),
-                  onPressed: _incrementCounter, 
+                  onPressed: _incrementCounter,
                   child: Text('Increase'),
                 ),
               ],
@@ -160,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.fingerprint),
-      ), 
+      ),
     );
   }
 }
@@ -173,7 +183,7 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       child: Text(this.buttonText),
-      onPressed: (){
+      onPressed: () {
         print('Pressing');
       },
     );

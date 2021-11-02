@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/1',
         routes: <String, WidgetBuilder>{
-          '/1': (context) => FirstPage(),
+          '/1': (context) => Diary(),
           '/2': (context) => SecondPage(),
         });
   }

@@ -5,6 +5,8 @@ class FirstFormModel extends ChangeNotifier {
   String? _time; 
   String? _menu;
   int? _kCal;
+  String? _workout;
+  int? _kCalBurnt;
 
   get date => this._date;
 
@@ -32,6 +34,20 @@ class FirstFormModel extends ChangeNotifier {
 
   set kCal(value) {
     this._kCal = value;
+    notifyListeners();
+  }
+
+  get workout => this._workout;
+
+  set workout(value) {
+    this._workout = value;
+    notifyListeners();
+  }
+
+  get kCalBurnt => this._kCalBurnt;
+
+  set kCalBurnt(value) {
+    this._kCalBurnt = value;
     notifyListeners();
   }
 }

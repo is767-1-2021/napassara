@@ -2,18 +2,18 @@ import 'package:team_app/models/first_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FirstPage extends StatefulWidget{
+class Diary extends StatefulWidget{
   @override
-  _FirstPageState createState() => _FirstPageState();
+  _DiaryState createState() => _DiaryState();
 }
 
-class _FirstPageState extends State<FirstPage> {
+class _DiaryState extends State<Diary> {
   String? _formData = 'Please click to fill the form';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('History'),
+        title: Text('Diary Note'),
       ),
       body: Center(
         child: Column(
@@ -31,7 +31,12 @@ class _FirstPageState extends State<FirstPage> {
                 Navigator.pushNamed(context, '/2');
               }, 
               child: Text('Fill this form please'),
-              ),
+              style: TextButton.styleFrom(
+                  primary: Colors.lightBlue[50],
+                  backgroundColor: Colors.teal,
+                  onSurface: Colors.black12,
+                ),
+              ),              
           ],
         ),
       ),
