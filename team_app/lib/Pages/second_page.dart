@@ -1,15 +1,55 @@
 import 'package:team_app/models/first_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter_svg/svg.dart';
 
 class SecondPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context)
+        .size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Enter Date&Time and Menu'),
+      body : Stack(
+        children: <Widget>[
+          Container(
+            height: size.height * .45,
+            decoration: BoxDecoration(
+              color : Colors.green[200] ,
+              image: DecorationImage(
+                image: AssetImage("assets/Diary_top.JPG"),
+              )
+            ),
+          ),
+           SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    child: GridView.count(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 2,
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(13),
+                        ),
+                        child: Column(
+                          children: <Widget>[SvgPicture.asset("assets/diet.svg")],
+                        ),
+                      ),
+                    ]
+                   ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
-      body: MyCustomForm(),
     );
   }
 }

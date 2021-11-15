@@ -2,12 +2,12 @@ import 'package:team_app/models/first_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Diary extends StatefulWidget{
+class Fill extends StatefulWidget{
   @override
-  _DiaryState createState() => _DiaryState();
+  _FillState createState() => _FillState();
 }
 
-class _DiaryState extends State<Diary> {
+class _FillState extends State<Fill> {
   String? _formData = 'Please click to fill the form';
   @override
   Widget build(BuildContext context) {

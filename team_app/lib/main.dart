@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:team_app/Pages/diary_page.dart';
 import 'package:team_app/models/first_form_model.dart';
 import 'package:provider/provider.dart';
 
-import 'Pages/first_page.dart';
-import 'Pages/second_page.dart';
+import 'package:team_app/Pages/first_page.dart';
+import 'package:team_app/Pages/second_page.dart';
+import 'package:team_app/Pages/Diary_page.dart';
 
 void main() {
   runApp(
@@ -33,8 +35,8 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/1',
         routes: <String, WidgetBuilder>{
-          '/1': (context) => Diary(),
-          '/2': (context) => SecondPage(),
+          '/1': (context) => Fill(),
+          '/2' : (context) => SecondPage(),
         });
   }
 }
