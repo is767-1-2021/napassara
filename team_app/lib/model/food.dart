@@ -8,10 +8,8 @@ class Food{
   String foodName = "";
   int foodKCalPerDish = 0;
   int totalDishes = 0;
-  double caloriesPerMinute = 0;
-  int userTimeMinutesSelected = 0;
-  String userTimeSelected = '';
-  int userTimeBasedCalories = 0;
+  int userDishselected = 0;
+  int userBasedCalories = 0;
 
   Food(Map data)
   {
@@ -19,21 +17,20 @@ class Food{
     foodName = data["foodName"];
     totalDishes = data['totalDishes'];
     foodKCalPerDish =  data["kcal"];
-    //caloriesPerMinute =  data["timePerMinute"];
+    userDishselected = data["userDishSelected"];
+    userBasedCalories = data["userBasedCalories"];
   }
 
-  Food.fromEmpty();
+  Food.fromEmpty(); 
 
   Map<String, dynamic> toJson() {
     return {
       "foodId": this.foodId,
       "foodName": this.foodName,
       "totalDishes": this.totalDishes,    
-      "foodKCalPerDish": this.foodKCalPerDish,    
-      "caloriesPerMinute": this.caloriesPerMinute,  
-      "userTimeMinutesSelected": this.userTimeMinutesSelected,  
-      "userTimeSelected": this.userTimeSelected,  
-      "userTimeBasedCalories": this.userTimeBasedCalories,  
+      "foodKCalPerDish": this.foodKCalPerDish, 
+      "userDishSelected" : this.userDishselected,   
+      "userBasedCalories": this.userBasedCalories 
     };
   }
 
@@ -42,10 +39,9 @@ class Food{
     foodName = data["foodName"];
     totalDishes = data['totalDishes'];
     foodKCalPerDish =  data["foodKCalPerDish"];
-    caloriesPerMinute =  data["caloriesPerMinute"];
-    userTimeMinutesSelected =  data["userTimeMinutesSelected"];
-    userTimeSelected =  data["userTimeSelected"];
-    userTimeBasedCalories =  data["userTimeBasedCalories"];
+    userDishselected = data["userDishSelected"];
+    userBasedCalories = data["userBasedCalories"];
+    
   }
 
   static Future<void> saveFoodsForDate(DateTime dateTime, List<Food> foodList) async {
@@ -75,3 +71,4 @@ class Food{
     return savedListForDate;
   }
 }
+

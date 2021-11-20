@@ -40,10 +40,6 @@ class _SelectFoodState extends State<SelectFood> {
     });
   }
 
-  Future<void> selectTime() async {
-    DateTime showTime = DateTime.now();
-    showTime = new DateTime(showTime.year, showTime.month, showTime.day, 1, 0, 0, 0, 0);
-  }
 
   Future<void> showCustomFoodDialog() async {
     dynamic customCategoryAdded = await Get.generalDialog(
@@ -120,12 +116,12 @@ class _SelectFoodState extends State<SelectFood> {
                   hint: "Search for Foods",
                   items: foods,
                   itemAsString: (Food u){
-                    return u.foodName + '\n' + u.totalDishes.toString() + "dishes"+ "hours" + " - " + u.foodKCalPerDish.toString();
+                    return u.foodName + '\n' + u.totalDishes.toString() + "Dishes" + " - " + u.foodKCalPerDish.toString();
                   },
                   onChanged: (data) {
                     setState(() {
                       selectedFood = data;  
-                      selectTime();
+                  
                     });
                   },
                   showSearchBox: true,
@@ -147,7 +143,7 @@ class _SelectFoodState extends State<SelectFood> {
                 itemCount: widget.selectedDayFoodList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return selectedFoodCell(widget.selectedDayFoodList[index]);
+                  return selectedFoodCell(widget.selectedDayFoodList[index], index);
                 })
               ),
             )
@@ -181,7 +177,7 @@ class _SelectFoodState extends State<SelectFood> {
     );
   }
 
-  Widget _customDropDownExample(BuildContext context, Food? food, String itemDesignation) {
+  Widget _customDropDownExample(BuildContext context, Food? Food, String itemDesignation) {
     return Container(
       child :Text(
         'Search for Foods',
@@ -190,7 +186,7 @@ class _SelectFoodState extends State<SelectFood> {
     );
   }
 
-  Widget selectedFoodCell(Food food){
+  Widget selectedFoodCell(Food Food, int index){
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
@@ -199,12 +195,25 @@ class _SelectFoodState extends State<SelectFood> {
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text(
-          '${food.foodName}',
-          style: TextStyle(
-            fontSize: SizeConfig.fontSize * 2.2,
-            fontWeight: FontWeight.w500
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${Food.foodName}',
+              style: TextStyle(
+                fontSize: SizeConfig.fontSize * 2.2,
+                fontWeight: FontWeight.w500
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                widget.selectedDayFoodList.removeAt(index);
+                setState(() {});
+                await Food.saveFoodsForDate(widget.selectedDate, widget.selectedDayFoodList); 
+              },
+              child: Icon(Icons.remove_circle, color: Colors.red,)
+            )
+          ],
         ),
         subtitle: Container(
           margin: EdgeInsets.only(top: 5),
@@ -212,7 +221,7 @@ class _SelectFoodState extends State<SelectFood> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [                   
               Text(
-                '${food.foodKCalPerDish} Kcal',
+                '${Food.userDishselected} dish',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,
@@ -222,7 +231,7 @@ class _SelectFoodState extends State<SelectFood> {
 
 
               Text(
-                '${food.userTimeBasedCalories} kcal',
+                '${Food.userBasedCalories} kcal',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,
