@@ -122,10 +122,10 @@ class _AddCustomFoodState extends State<AddCustomFood> {
               ),
               child: Center(
                 child: TextField(
-                    style: TextStyle(fontSize: SizeConfig.fontSize * 1.8),
-                    readOnly: true,
-                    enabled: false,
-                    controller: timeField,
+                  style: TextStyle(fontSize: SizeConfig.fontSize * 1.8),
+                  controller: kcal,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  keyboardType : TextInputType.number,
                     decoration: new InputDecoration(
                       hintText: "Dish",
                       hintStyle: TextStyle(color: Colors.green, fontSize: SizeConfig.fontSize * 1.8),
