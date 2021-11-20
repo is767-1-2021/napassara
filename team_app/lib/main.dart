@@ -1,76 +1,58 @@
+import 'package:exercise_app/screens/home/Foodpage.dart';
+import 'package:exercise_app/screens/home/drinkpage.dart';
+import 'package:exercise_app/screens/home/home.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:team_app/Pages/diary_page.dart';
-import 'package:team_app/models/first_form_model.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import 'package:team_app/Pages/first_page.dart';
-import 'package:team_app/Pages/second_page.dart';
-import 'package:team_app/Pages/Diary_page.dart';
+import 'old/pages/BMICalculatorScreen.dart';
+import 'old/pages/Home_menu.dart';
+import 'old/pages/daily_meal.dart';
+import 'old/pages/menu_page.dart';
+import 'old/pages/score_result.dart';
+import 'old/pages/sitemap.dart';
+import 'old/pages/welcome.dart';
+import 'old/pages/workout.dart';
+import 'old/pages/workout_result.dart';
 
-void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => FirstFormModel(),
-        ),
-      ],
-      child: MyApp(),
-    ),
-  );
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
+    return GetMaterialApp(
+        title: 'Exercise App',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Colors.amber,
-          accentColor: Colors.blue,
-          textTheme: TextTheme(
-            bodyText2: TextStyle(color: Colors.purple),
+          textTheme: GoogleFonts.latoTextTheme(
+            Theme.of(context).textTheme,
           ),
+          primarySwatch: Colors.green,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: '/1',
+        home: HomeScreen(),
+        initialRoute: '/twelve',
         routes: <String, WidgetBuilder>{
-          '/1': (context) => Fill(),
-          '/2' : (context) => SecondPage(),
+          '/one': (context) => Welcome(),
+          '/two': (context) => BMICalculatorScreen(),
+          '/three': (context) => sitemap(),
+          '/four': (context) => HomeScreen(),
+          '/five': (context) => meal(),
+          '/six': (context) => MenuPage(),
+          '/seven': (context) => SixthPage(),
+          '/eight': (context) => Home(),
+          '/nine': (context) => workout(),
+          '/ten': (context) => result(),
+          '/eleven': (context) => DrinkPage(),
+          '/twelve': (context) => FoodPage(),
         });
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Grid View'),
-      ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(7, (index) {
-          return InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, '/${index + 1}');
-            },
-            child: Container(
-              margin: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Center(
-                child: Text(
-                  'Item ${index + 1}',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
   }
 }
