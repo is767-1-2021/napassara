@@ -1,5 +1,5 @@
-import 'package:exercise_app/screens/home/Foodpage.dart';
 import 'package:exercise_app/screens/home/drinkpage.dart';
+import 'package:exercise_app/screens/home/foodpage.dart';
 import 'package:exercise_app/screens/home/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

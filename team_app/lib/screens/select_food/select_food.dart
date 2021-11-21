@@ -177,7 +177,7 @@ class _SelectFoodState extends State<SelectFood> {
     );
   }
 
-  Widget _customDropDownExample(BuildContext context, Food? Food, String itemDesignation) {
+  Widget _customDropDownExample(BuildContext context, Food? food, String itemDesignation) {
     return Container(
       child :Text(
         'Search for Foods',
@@ -186,7 +186,7 @@ class _SelectFoodState extends State<SelectFood> {
     );
   }
 
-  Widget selectedFoodCell(Food Food, int index){
+  Widget selectedFoodCell(Food food, int index){
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
@@ -199,7 +199,7 @@ class _SelectFoodState extends State<SelectFood> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '${Food.foodName}',
+              '${food.foodName}',
               style: TextStyle(
                 fontSize: SizeConfig.fontSize * 2.2,
                 fontWeight: FontWeight.w500
@@ -221,7 +221,7 @@ class _SelectFoodState extends State<SelectFood> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [                   
               Text(
-                '${Food.userDishselected} dish',
+                '${food.userDishselected} dish',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,
@@ -231,7 +231,7 @@ class _SelectFoodState extends State<SelectFood> {
 
 
               Text(
-                '${Food.userBasedCalories} kcal',
+                '${food.userBasedCalories} kcal',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,

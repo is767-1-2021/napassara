@@ -40,31 +40,6 @@ class _SelectDrinkState extends State<SelectDrink> {
     });
   }
 
-  Future<void> selectTime() async {
-    DateTime showTime = DateTime.now();
-    showTime = new DateTime(showTime.year, showTime.month, showTime.day, 1, 0, 0, 0, 0);
-
-    final time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(showTime),
-      initialEntryMode: TimePickerEntryMode.dial
-    );
-
-    if(time == null)
-      print('Time canceled');
-    else
-    {
-      print(time.hour);
-      int totalMinutes = (time.hour * 60) + time.minute;
-      selectedDrink!.userTimeMinutesSelected = totalMinutes;
-      selectedDrink!.userTimeSelected = (time.minute >0) ? "${time.hour}:${time.minute}" : "${time.hour}";
-      selectedDrink!.userTimeBasedCalories = (selectedDrink!.userTimeMinutesSelected * selectedDrink!.caloriesPerMinute).toInt();
-      widget.selectedDayDrinkList.add(selectedDrink!); 
-      //remove selected exercise from list
-      drinks.removeWhere((drink) => drink.drinkId == selectedDrink!.drinkId);
-      setState(() {});
-    }
-  }
 
   Future<void> showCustomDrinkDialog() async {
     dynamic customCategoryAdded = await Get.generalDialog(
@@ -141,12 +116,12 @@ class _SelectDrinkState extends State<SelectDrink> {
                   hint: "Search for Drinks",
                   items: drinks,
                   itemAsString: (Drink u){
-                    return u.drinkName + '\n' + u.totalCups.toString() + "cups"+ "hours" + " - " + u.drinkKCalPerCup.toString();
+                    return u.drinkName + '\n' + u.totalCups.toString() + "cups" + " - " + u.drinkKCalPerCup.toString();
                   },
                   onChanged: (data) {
                     setState(() {
                       selectedDrink = data;  
-                      selectTime();
+                  
                     });
                   },
                   showSearchBox: true,
@@ -168,7 +143,7 @@ class _SelectDrinkState extends State<SelectDrink> {
                 itemCount: widget.selectedDayDrinkList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return selectedDrinkCell(widget.selectedDayDrinkList[index]);
+                  return selectedDrinkCell(widget.selectedDayDrinkList[index], index);
                 })
               ),
             )
@@ -202,7 +177,7 @@ class _SelectDrinkState extends State<SelectDrink> {
     );
   }
 
-  Widget _customDropDownExample(BuildContext context, Drink? exercise, String itemDesignation) {
+  Widget _customDropDownExample(BuildContext context, Drink? drink, String itemDesignation) {
     return Container(
       child :Text(
         'Search for Drinks',
@@ -211,7 +186,7 @@ class _SelectDrinkState extends State<SelectDrink> {
     );
   }
 
-  Widget selectedDrinkCell(Drink drink){
+  Widget selectedDrinkCell(Drink drink, int index){
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
@@ -220,12 +195,25 @@ class _SelectDrinkState extends State<SelectDrink> {
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
-        title: Text(
-          '${drink.drinkName}',
-          style: TextStyle(
-            fontSize: SizeConfig.fontSize * 2.2,
-            fontWeight: FontWeight.w500
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${drink.drinkName}',
+              style: TextStyle(
+                fontSize: SizeConfig.fontSize * 2.2,
+                fontWeight: FontWeight.w500
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                widget.selectedDayDrinkList.removeAt(index);
+                setState(() {});
+                await Drink.saveDrinksForDate(widget.selectedDate, widget.selectedDayDrinkList); 
+              },
+              child: Icon(Icons.remove_circle, color: Colors.red,)
+            )
+          ],
         ),
         subtitle: Container(
           margin: EdgeInsets.only(top: 5),
@@ -233,7 +221,7 @@ class _SelectDrinkState extends State<SelectDrink> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [                   
               Text(
-                '${drink.userTimeSelected} cup',
+                '${drink.userCupSelected} cup',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,
@@ -243,7 +231,7 @@ class _SelectDrinkState extends State<SelectDrink> {
 
 
               Text(
-                '${drink.userTimeBasedCalories} kcal',
+                '${drink.userBasedCalories} kcal',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,
