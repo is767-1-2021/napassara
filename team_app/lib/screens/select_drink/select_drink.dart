@@ -95,7 +95,12 @@ class _SelectDrinkState extends State<SelectDrink> {
       ),
       body: (loading) ? Container(
         child: Center(
-          child: CircularProgressIndicator(),
+          child: Column(
+            children: [
+              CircularProgressIndicator(),
+              Text("loading ${drinks.length}")
+            ],
+          ),
         ),
       ) : Container(
         child: Column(
@@ -221,7 +226,7 @@ class _SelectDrinkState extends State<SelectDrink> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [                   
               Text(
-                '${drink.userCupSelected} cup',
+                '${drink.totalCups} cup',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,
@@ -231,7 +236,7 @@ class _SelectDrinkState extends State<SelectDrink> {
 
 
               Text(
-                '${drink.userBasedCalories} kcal',
+                '${drink. drinkKCalPerCup} kcal',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,

@@ -95,7 +95,12 @@ class _SelectFoodState extends State<SelectFood> {
       ),
       body: (loading) ? Container(
         child: Center(
-          child: CircularProgressIndicator(),
+          child: Column(
+            children: [
+              CircularProgressIndicator(),
+              Text("loading ${foods.length}")
+            ],
+          ),
         ),
       ) : Container(
         child: Column(
@@ -221,7 +226,7 @@ class _SelectFoodState extends State<SelectFood> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [                   
               Text(
-                '${food.userDishselected} dish',
+                '${food.totalDishes} dish',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,
@@ -231,7 +236,7 @@ class _SelectFoodState extends State<SelectFood> {
 
 
               Text(
-                '${food.userBasedCalories} kcal',
+                '${food.foodKCalPerDish} kcal',
                 style: TextStyle(
                   fontSize: SizeConfig.fontSize * 1.8,
                   fontWeight: FontWeight.w500,
