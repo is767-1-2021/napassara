@@ -8,8 +8,8 @@ class Food{
 
   String foodId = '';
   String foodName = "";
-  double foodKCalPerDish = 0;
-  int totalkcal = 0;
+  double totalkcal = 0;
+  int foodKCalPerDish = 0;
   int totalDishes = 0;
   int userDishSelected = 0;
   int userBasedCalories = 0;
@@ -18,8 +18,8 @@ class Food{
   {
     foodId = data["foodId"];
     foodName = data["foodName"];
-    foodKCalPerDish =  data["kcal"];
     totalkcal = data['totalkcal'];
+    foodKCalPerDish =  data["kcal"];
     totalDishes = data['totalDishes'];
     userDishSelected = data["userDishSelected"];
     userBasedCalories = data["userBasedCalories"];
@@ -31,8 +31,8 @@ class Food{
     return {
       "foodId": this.foodId,
       "foodName": this.foodName, 
-      "foodKCalPerDish": this.foodKCalPerDish,
       "totalkcal": this.totalkcal,
+      "foodKCalPerDish": this.foodKCalPerDish,
       "totalDishes": this.totalDishes, 
       "userDishSelected" : this.userDishSelected,   
       "userBasedCalories": this.userBasedCalories 
@@ -42,8 +42,8 @@ class Food{
   Food.fromSavedJson(Map<String, dynamic> data) {
     foodId = data["foodId"];
     foodName = data["foodName"];
-    foodKCalPerDish =  data["foodKCalPerDish"];
     totalkcal = data['totalkcal'];
+    foodKCalPerDish =  data["foodKCalPerDish"];
     totalDishes = data['totalDishes'];
     userDishSelected = data["userDishSelected"];
     userBasedCalories = data["userBasedCalories"];

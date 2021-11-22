@@ -8,14 +8,14 @@ class FoodController {
   final firestoreInstance = FirebaseFirestore.instance;
 
   //Delivery Areas via CSV
-  Future addAllFoods(String foodId, String foodName, double foodKCalPerDish) async {
+  Future addAllFoods(String foodId, String foodName, double totalkcal) async {
     try {   
-      int kCal = (foodKCalPerDish * 1).toInt();
+      int kCal = (totalkcal * 1).toInt();
       dynamic result = await firestoreInstance.collection("Foods").doc(foodId).set({
         'foodName': foodName,
         'kCal': kCal,
         'totalDish' : 1,
-        'foodKCalPerDish' : foodKCalPerDish
+        'totalkcal' : totalkcal
       }).then((doc) async {
         print("success!");
         return true;

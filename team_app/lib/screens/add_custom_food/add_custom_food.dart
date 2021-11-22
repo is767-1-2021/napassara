@@ -24,12 +24,12 @@ class _AddCustomFoodState extends State<AddCustomFood> {
     Food customFood = Food.fromEmpty();
     customFood.foodId = DateTime.now().millisecondsSinceEpoch.toString();
     customFood.foodName = foodName.text; 
-    customFood.totalkcal = int.parse(kcal.text);
+    customFood.foodKCalPerDish = int.parse(kcal.text);
     customFood.totalDishes = totalDishes;
-    customFood.foodKCalPerDish = customFood.totalkcal/customFood.totalDishes;
+    customFood.totalkcal = customFood.foodKCalPerDish/(1/customFood.totalDishes);
     customFood.userDishSelected = int.parse(dish.text);
-    customFood.userBasedCalories = (customFood.foodKCalPerDish * int.parse(dish.text)).toInt();
-    FoodController().addAllFoods(customFood.foodId,customFood.foodName,customFood.foodKCalPerDish);
+    customFood.userBasedCalories = (customFood.totalkcal).toInt();
+    FoodController().addAllFoods(customFood.foodId,customFood.foodName,customFood.totalkcal);
     Get.back(result: customFood);
   }
 
