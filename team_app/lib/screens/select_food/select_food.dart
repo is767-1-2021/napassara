@@ -107,7 +107,7 @@ class _SelectFoodState extends State<SelectFood> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //Exercises
-            if(foods.length>0)
+            if(foods.length >= 0)
             Container(
               height: SizeConfig.blockSizeVertical * 7,
               decoration: BoxDecoration(
